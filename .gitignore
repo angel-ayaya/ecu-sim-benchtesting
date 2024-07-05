@@ -1,0 +1,51 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Caché de IDEs
+.idea/
+.vscode/
+
+# Dependencias
+venv/
+env/
+env.bak/
+env1/
+env2/
+
+# Archivos de registro y salida
+*.log
+*.pot
+*.pyc
+*.swp
+*.swo
+*.pyo
+*.bak
+*.tmp
+
+# Archivos de configuración
+*.ini
+*.cfg
+*.conf
+*.env
+
+# Archivos de compilación
+*.pyd
+*.so
+*.dll
+*.exe
+
+# Archivos de respaldo
+*.bak
+*.backup
+*.old
+*.swp
+*.swo
+*.~*
+
+# Archivos de caché
+*.cache
+*.egg-info/
+dist/
+build/
