@@ -10,7 +10,7 @@ class CANReceiver:
         self.msg = self.bus.recv(timeout=1)
         if self.msg:
             print(f"Mensaje recibido: {self.msg}")
-            if self.msg.data in [bytearray([1, 2, 3]), bytearray([4, 5, 6])]:
+            if self.msg.arbitration_id in [0x7DF, 0x7E8]:  # Ajusta esto según los IDs de arbitraje esperados
                 print("Mensaje validado correctamente")
             else:
                 print(f"Datos inesperados: {self.msg.data}")

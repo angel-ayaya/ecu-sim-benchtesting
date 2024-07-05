@@ -10,7 +10,7 @@ import can
 bus_config = {
     'channel': 'test',
     'interface': 'virtual',
-    'arbitration_id': 0xabcde,
+    'arbitration_id': 0x7DF,
     'data': bytearray([1, 2, 3])
 }
 
@@ -20,12 +20,11 @@ vis = visualizer.CANVisualizer()
 
 stop_event = threading.Event()
 
-sleep_time = 1
-
-def run_simulator(simulator):
+def run_simulator(simulator, message_list):
     while not stop_event.is_set():
         simulator.run_once()
-        time.sleep(sleep_time)
+        simulator.receive_and_process()
+        time.sleep(0.1)
 
 def run_receiver(receiver, vis, message_list):
     while not stop_event.is_set():
@@ -33,7 +32,7 @@ def run_receiver(receiver, vis, message_list):
         if receiver.msg:
             vis.add_data(receiver.msg.data[0])
             message_list.insert('', tk.END, values=(f"Received", f"{hex(receiver.msg.arbitration_id)}", f"{list(receiver.msg.data)}"))
-        time.sleep(sleep_time)
+        time.sleep(0.1)
 
 def send_custom_message(arbitration_id, data, message_list):
     msg = can.Message(arbitration_id=int(arbitration_id, 16), data=bytearray(eval(data)))
@@ -82,7 +81,7 @@ def create_ui():
     send_button.grid(column=0, row=3, columnspan=2, pady=10)
 
     # Iniciar los hilos del simulador y receptor después de crear la UI
-    simulator_thread = threading.Thread(target=run_simulator, args=(simulator,))
+    simulator_thread = threading.Thread(target=run_simulator, args=(simulator, message_list))
     receiver_thread = threading.Thread(target=run_receiver, args=(receiver, vis, message_list))
 
     simulator_thread.start()
