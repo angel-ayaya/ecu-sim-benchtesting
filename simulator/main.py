@@ -23,8 +23,7 @@ stop_event = threading.Event()
 def run_simulator(simulator, message_list):
     while not stop_event.is_set():
         simulator.run_once()
-        simulator.receive_and_process()
-        time.sleep(0.1)
+        time.sleep(0.1)  # Ajustamos para que el simulador envíe mensajes periódicamente
 
 def run_receiver(receiver, vis, message_list):
     while not stop_event.is_set():
